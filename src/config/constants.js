@@ -1,6 +1,6 @@
 const CONSTANTS = {
     // API: 'http://61.130.29.23:80/'
-    API: 'http://mxuwz.5173.com/api/',
+    API: 'http://mxuwz.5173.com:8089/',
     HOST: '/'
 };
 

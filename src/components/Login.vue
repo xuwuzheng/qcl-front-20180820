@@ -13,7 +13,7 @@
 				</div> -->
 				<div class="ipunt-wrap">
 					<label for="userNo" class="icon-user"></label>
-					<input type="text" id="userNo" placeholder="工号" v-model="userNo">
+					<input type="text" id="userNo" placeholder="手机号" v-model="userNo">
 				</div>
 				<div class="ipunt-wrap">
 					<label for="userPassword" class="icon-password"></label>

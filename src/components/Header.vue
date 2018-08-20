@@ -1,7 +1,7 @@
 <template>
 	<div id="header">
 		<div class="logo">
-			5173知识库
+			倾城恋
 			<span>v1.0.0</span>
 			<span v-show="isAdmin">[管理员]</span>
 		</div>

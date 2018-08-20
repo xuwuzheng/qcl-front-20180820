@@ -13,7 +13,7 @@
 				</div>
 				<div class="ipunt-wrap">
 					<label for="phone" class="icon-phone"></label>
-					<input type="text" id="userno" placeholder="工号" v-model="userno">
+					<input type="text" id="userno" placeholder="手机号" v-model="userno">
 				</div>
 				<div class="ipunt-wrap">
 					<label for="password" class="icon-password"></label>

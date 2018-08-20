@@ -11,7 +11,7 @@
 					<!-- <router-link to="/admin-login">
 						<a class="gv" href="avascript:;" @click="adminLogin()">管理员登录</a>
 					</router-link> -->
-					<a class="gvname" href="avascript:;" @click="xuwz()">by-徐武政-有问题企业微信联系</a>
+					<!-- <a class="gvname" href="avascript:;" @click="xuwz()">by-徐武政-有问题企业微信联系</a> -->
 				</div>
 			</div>
   		</transition>

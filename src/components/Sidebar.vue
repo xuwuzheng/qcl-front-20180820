@@ -2,11 +2,11 @@
 	<div id="sidebar">
 		<ul>
 			<div class="userinfo">
-             <p>工号：<span class="c333333">339664</span></p>
-			 <p>姓名：<span class="c333333">徐武政</span></p>
-			 <p>我的提问：<span class="c333333">0</span></p>
-			 <p>我的回答：<span class="c333333">0</span></p>
-			 <p>我的收藏：<span class="c333333">0</span></p>
+             <p class="userinfo-p">手机号：<span class="c333333">15858912532</span></p>
+			 <p class="userinfo-p">姓名：<span class="c333333">徐武政</span></p>
+			 <p class="userinfo-p">我的提问：<span class="c333333">0</span></p>
+			 <p class="userinfo-p">我的回答：<span class="c333333">0</span></p>
+			 <p class="userinfo-p">我的收藏：<span class="c333333">0</span></p>
             </div>
 		</ul>
 		<ul>
@@ -83,6 +83,9 @@ export default {
 	margin: 0px 10px 40px 10px;
 	padding: 25px;
 	border: 1px solid;
+}
+.userinfo-p{
+	width: 150px;
 }
 .c333333 {
     color: rgb(50, 248, 0);
