@@ -9,23 +9,35 @@
 		</thead>
 		<tbody>				
 			<tr v-for="(item,index) in list">
-				<td style="width:20px;">
+				<td  style="width:40px;">
 					{{++index}}
 				</td>
-				<td  style="width:300px;">
-					{{item.title}}
+				<td  style="width:100px;">
+					{{item.nike}}
 				</td>
-				<td style="width:500px;">
-					{{item.content}}
+				<td  style="width:40px;">
+					{{item.sex == "0" ? "男" : "女"}}
 				</td>
-				<td style="width:120px;">
-					{{item.categoryName}}
+				<td  style="width:200px;">
+					<img :src=item.pic />
 				</td>
-				<td  style="width:30px;">
-					<a class="copyBtn" :data-clipboard-text ='item.content' style="color: #FF3030;text-decoration: underline;">复制</a>
+				<td  style="width:400px;">
+					{{item.detail}}
+				</td>
+				<td  style="width:250px;">
+					{{item.tag}}
+				</td>
+				<td  style="width:250px;">
+					{{item.property}}
+				</td>
+				<td  style="width:80px;">
+					{{item.popular}}
+				</td>
+				<td  style="width:80px;">
+					{{item.likeNumber}}
 				</td>
 				<td v-show="isAdmin">
-					<a @click="updatedoc(item.id,item.title,item.content,item.type,item.pcontent)" style="color: #00ff22;text-decoration: underline;">修改</a>
+					<!-- <a @click="updatedoc(item.id,item.title,item.content,item.type,item.pcontent)" style="color: #00ff22;text-decoration: underline;">修改</a> -->
 					<a @click="deleted(item.id)" style="color: #FF3030;text-decoration: underline;">删除</a>
 				</td>
 			</tr>
@@ -42,7 +54,7 @@ export default {
 	},
 	computed: {
 		isAdmin() {
-			if (sessionStorage.userPhone) {
+			if (sessionStorage.sb == "false") {
 				return true
 			} else {
 				return false

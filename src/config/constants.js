@@ -7,5 +7,6 @@ const CONSTANTS = {
 CONSTANTS.APIUser = CONSTANTS.API + 'user/'; // 用户接口
 CONSTANTS.APICategory = CONSTANTS.API + 'category/'; // 类目接口
 CONSTANTS.APIDoc = CONSTANTS.API + 'doc/'; // 文档接口
+CONSTANTS.APILover = CONSTANTS.API + 'lover/'; // 恋爱信息接口
 
 export { CONSTANTS }

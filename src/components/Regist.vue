@@ -13,7 +13,7 @@
 				</div>
 				<div class="ipunt-wrap">
 					<label for="phone" class="icon-phone"></label>
-					<input type="text" id="userno" placeholder="手机号" v-model="userno">
+					<input type="text" id="userphone" placeholder="手机号" v-model="userphone">
 				</div>
 				<div class="ipunt-wrap">
 					<label for="password" class="icon-password"></label>
@@ -54,7 +54,7 @@ export default {
 	data() {
 		return {
 			username: '',
-			userno: '',
+			userphone: '',
 			password: '',
 			confimpassword: '',
 			dialog: false,
@@ -73,7 +73,7 @@ export default {
 			this.$emit('back')
 		},
 		Regist() {
-			if (!this.username || !this.userno || !this.password || !this.confimpassword) {
+			if (!this.username || !this.userphone || !this.password || !this.confimpassword) {
 				this.dialog = true
 				this.dialogMsg = '请填写完整'
 				return
@@ -90,7 +90,7 @@ export default {
 			// }
 			this.$http.post(this.$CONSTANTS.APIUser +'addUser',{
 				userName: this.username,
-				userNo: this.userno,
+				userPhone: this.userphone,
 				userPassword: this.password
 			}).then((res) => {
 				if(res.body.code == 200){

@@ -25,8 +25,8 @@ export default {
 	data() {
 		return {
 			knowledgeList: '',
-			custhead: ['编号', '标题', '内容', '类型','复制'],
-			adminthead: ['编号', '标题', '内容', '类型', '操作'],
+			custhead: ['编号', '昵称', '性别', '图片', '介绍', '标签', '爱好', '流行指数', '喜欢指数'],
+			adminthead: ['编号', '昵称', '性别', '图片', '介绍', '标签', '爱好', '流行指数', '喜欢指数', '操作'],
 			pagenum:1,
 			isFirstPage:false,
 			isLastPage:false,
@@ -35,7 +35,7 @@ export default {
 	},
 	computed: {
 		thead() {
-			if (sessionStorage.userPhone) {
+			if (sessionStorage.sb=="false") {
 				return this.adminthead
 			} else {
 				return this.custhead
@@ -49,8 +49,9 @@ export default {
 		deleted(id) {
 			var r=confirm("确认删除")
 			if (r==true){
-				this.$http.post(this.$CONSTANTS.APIDoc +'deleteDoc',{
-					id:id
+				this.$http.post(this.$CONSTANTS.APILover +'delLover',{
+					id:id,
+					userToken:sessionStorage.userToken
 				}).then((res) => {
 					if(res.body.code == 200){
 						this.Search(this.keyword);
@@ -66,10 +67,11 @@ export default {
 			if(clearpage==1){
 				this.pagenum=1
 			}
-			this.$http.post(this.$CONSTANTS.APIDoc +'goods',{
+			this.$http.post(this.$CONSTANTS.APILover +'goods',{
 				queryKey:keyword,
+				sortKey:"popular desc",
 				page:this.pagenum,
-				pageSize:13
+				pageSize:11
 			}).then((res) => {
 				if(res.body.code == 200){
 					this.knowledgeList = ''

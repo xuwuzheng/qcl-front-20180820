@@ -33,7 +33,7 @@ export default {
 	created() {
 		this.name = sessionStorage.name
 		//this is a bug : By modifying sessionStorage.userPhone as the correct phone number, it can become an administrator.
-		if (sessionStorage.userPhone && sessionStorage.userPhone != 'undefined' && (/^1[34578]\d{9}$/).test(sessionStorage.userPhone)) {
+		if (sessionStorage.sb=="false") {
 			this.isAdmin = true
 		}
 	},
@@ -49,6 +49,7 @@ export default {
 			sessionStorage.userNo = ''
 			sessionStorage.userPhone = ''
 			sessionStorage.name = ''
+			sessionStorage.sb = ''
 			this.$router.push('/menu')
 		}
 	}

@@ -1,6 +1,6 @@
 <template>
 	<div id="sidebar">
-		<ul>
+		<!-- <ul>
 			<div class="userinfo">
              <p class="userinfo-p">手机号：<span class="c333333">15858912532</span></p>
 			 <p class="userinfo-p">姓名：<span class="c333333">徐武政</span></p>
@@ -8,7 +8,7 @@
 			 <p class="userinfo-p">我的回答：<span class="c333333">0</span></p>
 			 <p class="userinfo-p">我的收藏：<span class="c333333">0</span></p>
             </div>
-		</ul>
+		</ul> -->
 		<ul>
 			<li v-for="(item,index) in sidebarList" class="list-item">
 				<router-link :to="item.url">{{item.content}}</router-link>
@@ -25,20 +25,20 @@ export default {
 		return {
 			sidebarList: [],
 			customerSidebar: [
-				{content: '知识展示', url: '/exhibition'},
-				{content: '添加知识', url: '/adddoc'},
+				{content: '信息展示', url: '/exhibition'},
+				{content: '发布信息', url: '/adddoc'},
 				// {content: '出售房屋', url: '/sellhouse'},
-				// {content: '求租房屋', url: '/solicithouse'},
+				{content: '3D类型', url: '/solicithouse'},
 				// {content: '购买房屋', url: '/buyhouse'},
 				// {content: '个人信息', url: '/userinfo'},
 				// {content: '密码修改', url: '/modifypass'},
 				// {content: '留言板', url: '/messageboard'} 
 			],
 			adminSidebar: [
-				{content: '知识展示管理', url: '/exhibition'},
-				{content: '添加知识管理', url: '/adddoc'},
-				{content: '类目管理', url: '/categorylist'},
-				{content: '知识库统计查询', url: '/solicithouse'},
+				{content: '信息展示管理', url: '/exhibition'},
+				{content: '添加信息管理', url: '/adddoc'},
+				// {content: '类目管理', url: '/categorylist'},
+				{content: '3D类型管理', url: '/solicithouse'},
 				// {content: '购买信息管理', url: '/buyhouse'},
 				// {content: '会员信息管理', url: '/userlist'},
 				// {content: '留言板管理', url: '/msgborlist'}
@@ -47,7 +47,7 @@ export default {
 	},
 
 	created() {
-		if (sessionStorage.userPhone) {
+		if (sessionStorage.sb == "false") {
 			this.sidebarList = this.sidebarList.concat(this.adminSidebar)
 		} else {
 			this.sidebarList = this.sidebarList.concat(this.customerSidebar)

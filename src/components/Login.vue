@@ -12,8 +12,8 @@
 					<input type="text" id="phone" placeholder="手机号" v-model="userPassword">
 				</div> -->
 				<div class="ipunt-wrap">
-					<label for="userNo" class="icon-user"></label>
-					<input type="text" id="userNo" placeholder="手机号" v-model="userNo">
+					<label for="userPhone" class="icon-user"></label>
+					<input type="text" id="userPhone" placeholder="手机号" v-model="userPhone">
 				</div>
 				<div class="ipunt-wrap">
 					<label for="userPassword" class="icon-password"></label>
@@ -54,7 +54,7 @@ export default {
 	},
 	data() {
 		return {
-			userNo: '',
+			userPhone: '',
 			userPassword: '',
 			dialog: false,
 			dialogMsg: ''
@@ -70,23 +70,23 @@ export default {
 		},
 		Login() {
 			if (this.admin) {
-				if (!this.userPassword || !this.userNo ) {
+				if (!this.userPassword || !this.userPhone ) {
 					this.dialog = true
 					this.dialogMsg = '请填写完整'
 					return
 				}
 				this.$http.post(
 					this.$CONSTANTS.APIUser +'login',{
-						userNo: this.userNo,
+						userPhone: this.userPhone,
 						userPassword: this.userPassword
 					}).then((res) => {
 						if(res.body.code == 200){
-							this.userNo = ''
+							this.userPhone = ''
 							this.userPassword = ''
 							sessionStorage.id = res.body.data.id
-							sessionStorage.userNo = res.body.data.userNo
-							sessionStorage.userPhone = res.body.data.userPhone
+							sessionStorage.userToken = res.body.data.userToken
 							sessionStorage.name = res.body.data.userName
+							sessionStorage.sb = res.body.data.sb
 							this.$router.push('/exhibition')
 						} else {
 							alert('用户名或密码出错')
@@ -96,25 +96,26 @@ export default {
 			}
 			
 			if (this.customer) {
-				if (!this.userNo || !this.userPassword) {
+				if (!this.userPhone || !this.userPassword) {
 					this.dialog = true
 					this.dialogMsg = '请填写完整'
 					return
 				}
 				this.$http.post(
 					this.$CONSTANTS.APIUser +'login',{
-						userNo: this.userNo,
+						userPhone: this.userPhone,
 						userPassword: this.userPassword
 					}).then((res) => {
 						if(res.body.code == 200){
-							this.userNo = ''
+							console.log(res.body.data);
+							this.userPhone = ''
 							this.userPassword = ''
 							sessionStorage.id = res.body.data.id
-							sessionStorage.userNo = res.body.data.userNo
-							if(res.body.data.userPhone != null){
-								sessionStorage.userPhone = res.body.data.userPhone
-							}
+							sessionStorage.userToken = res.body.data.userToken
 							sessionStorage.name = res.body.data.userName
+							if(!res.body.data.sb){
+								sessionStorage.sb = res.body.data.sb
+							}
 							this.$router.push('/exhibition')
 						} else {
 							alert('用户名或密码出错')

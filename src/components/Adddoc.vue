@@ -1,36 +1,50 @@
 <template>
 	<section class="content-wrap">
-		<v-search @search="Search"></v-search>	
+		<!-- <v-search @search="Search"></v-search>	
 		<div class="pagebutton">
 			<a class="pa" @click="prevpage()" >上一页</a>
 			<a class="pa" @click="nextpage()" >下一页</a>
-		</div>
-		<div class="button" @click="addRent()">提问</div>
-		<v-table :thead="thead" :list="knowledgeList" @deleted="deleted" @updatedoc="updatedoc"></v-table>
+		</div> -->
+		<div class="button" @click="addRent()">添加信息</div>
+		<!-- <v-table :thead="thead" :list="knowledgeList" @deleted="deleted" @updatedoc="updatedoc"></v-table> -->
 		
 		<transition name="fade">
 			<div v-show="addInfoShow" class="addInfo">
 				<div class="addInfo-wrapper">
 					<div class="addInfo-main">
 						<div class="from-wrap">
+							<!-- '昵称', '性别', '图片', '介绍', '标签', '爱好' -->
 							<div class="ipunt-wrap">
-								<label for="">标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题:</label>
-								<textarea  type="text" placeholder="" autofocus v-model="title"></textarea>
+								<label for="">昵称:</label>
+								<textarea  type="text" placeholder="" autofocus v-model="nike"></textarea>
 							</div>
 							<div class="ipunt-wrap">
-								<label for="">所属类型:</label>
-								<select v-model="category" >
-									<option v-for="(item,index) in mCategory"  :value="item.id">{{ item.name }}</option>
+								<label for="">性别:</label>
+								<select v-model="sex">
+									<option :value="0">男</option>
+									<option :value="1">女</option>
 								</select>
 								<!-- <input type="select" v-model="rprice"> -->
 							</div>
-							<div class="ipunt-wrap" v-show="admin">
-								<label for="">内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容:</label>
-								<textarea  type="text" placeholder="" autofocus v-model="content"></textarea>
+							<div class="ipunt-wrap">
+								<label for="">介绍:</label>
+								<textarea  type="text" placeholder="" autofocus v-model="detail"></textarea>
+							</div>
+							<div class="ipunt-wrap">
+								<label for="">标签:</label>
+								<textarea  type="text" placeholder="" autofocus v-model="tag"></textarea>
+							</div>
+							<div class="ipunt-wrap">
+								<label for="">爱好:</label>
+								<textarea  type="text" placeholder="" autofocus v-model="property"></textarea>
 							</div>
 							<div class="ipunt-wrap" v-show="admin">
-								<label for="">搜索关键词:</label>
-								<textarea  type="text" placeholder="" autofocus v-model="pcontent"></textarea>
+								<label for="">流行指数:</label>
+								<textarea  type="text" placeholder="0" autofocus v-model="popular"></textarea>
+							</div>
+							<div class="ipunt-wrap" v-show="admin">
+								<label for="">喜欢指数:</label>
+								<textarea  type="text" placeholder="0" autofocus v-model="likeNumber"></textarea>
 							</div>
 							<!-- 
 							<div class="ipunt-wrap">
@@ -58,39 +72,28 @@
 </template>
 
 <script>
-import Searchbar from './Searchbar';
-import Table from './Table';
-import Clipboard from 'clipboard';
-let clipboard = new Clipboard('.copyBtn');
 
 export default {
 	components: {
-		'v-search': Searchbar,
-		'v-table': Table
 	},
 	data() {
 		return {
 			addInfoShow: false,
-			knowledgeList: '',
-			title: '',
-			custhead: ['编号', '标题', '内容', '类型'],
-			adminthead: ['编号', '标题', '内容', '类型', '操作'],
-			category:'',
-			mCategory:'',
-			admin:false,
-			content:'',
-			pagenum:1,
-			isFirstPage:false,
-			isLastPage:false,
-			keyword:null,
-			pcontent:''
+			nike:'',
+			sex:'',
+			detail:'',
+			tag:'',
+			property:'',
+			popular:0,
+			likeNumber:0,
+			admin:false
 		}
 	},
 	filters: {
 	},
 	computed: {
 		thead() {
-			if (sessionStorage.userPhone) {
+			if (sessionStorage.sb == "false") {
 				this.admin=true
 				return this.adminthead
 			} else {
@@ -100,109 +103,36 @@ export default {
 		}
 	},
 	created() {
-		this.Search(this.keyword);
+		
 	},
 	methods: {
-		deleted(id) {
-			var r=confirm("确认删除")
-			if (r==true){
-				this.$http.post(this.$CONSTANTS.APIDoc +'deleteDoc',{
-					id:id
-				}).then((res) => {
-					if(res.body.code == 200){
-						this.Search(this.keyword);
-					} else {
-						alert('删除失败')
-					}
-				})
-			} else {
-				return
-			}
-		},
-		updatedoc(id,title,content,type,pcontent){
-			this.id = id,
-			this.title = title,
-			this.content = content,
-			this.category = type,
-			this.pcontent = pcontent,
-			this.addRent()
-		},
-		addRent() {
-			this.addInfoShow = true
-			this.$http.post(this.$CONSTANTS.APICategory +'queryCategory',{
-			}).then((res) => {
-				if(res.body.code == 200){
-					this.mCategory = res.body.data.list
-				} else {
-					alert('知识类型获取失败')
-				}
-			})
-		},
 		closeAddInfo() {
-			this.addInfoShow = false,
-			this.id = null,
-			this.title = "",
-			this.content = "",
-			this.category = 0,
-			this.pcontent = ''
+			this.addInfoShow = false
 		},
 		addInfo() {
-			if (!this.title || !this.category) {
+			if (!this.nike || !this.sex  || !this.detail || !this.tag || !this.property) {
 				alert('请填写完整')
 				return
 			}
-			this.$http.post(this.$CONSTANTS.APIDoc +'addDoc',{
-				id:this.id,
-				title:this.title,
-				type:this.category,
-				content:this.content,
-				pcontent:this.pcontent,
-				author:sessionStorage.name
+			this.$http.post(this.$CONSTANTS.APILover +'addLover',{
+				nike:this.nike,
+				sex:this.sex,
+				detail:this.detail,
+				tag:this.tag,
+				property:this.property,
+				popular:this.popular,
+				likeNumber:this.likeNumber,
+				userToken:sessionStorage.userToken
 			}).then((res) => {
 				if(res.body.code == 200){
 					this.closeAddInfo()
-					this.Search(this.keyword);
 				} else {
 					alert('添加失败')
 				}
 			})
 		},
-		Search(keyword) {
-			this.$http.post(this.$CONSTANTS.APIDoc +'goods',{
-				queryKey:keyword,
-				page:this.pagenum,
-				pageSize:13
-			}).then((res) => {
-				if(res.body.code == 200){
-					this.knowledgeList = ''
-					this.knowledgeList = res.body.data.list
-				} else {
-					alert('查询失败')
-				}
-				if(res.body.data.isFirstPage){
-					this.isFirstPage = true
-				} else {
-					this.isFirstPage = false
-				}
-				if(res.body.data.isLastPage){
-					this.isLastPage = true
-				} else {
-					this.isLastPage = false
-				}
-			})
-			this.keyword =keyword
-		},
-		prevpage(){
-			if(!this.isFirstPage){
-				this.pagenum = this.pagenum - 1;
-				this.Search(this.keyword);
-			}
-		},
-		nextpage(){
-			if(!this.isLastPage){
-				this.pagenum = this.pagenum + 1;
-				this.Search(this.keyword);
-			}
+		addRent(){
+			this.addInfoShow = true
 		}
 	},
 
@@ -217,7 +147,7 @@ section.content-wrap{
 section.content-wrap .button{
 	position: absolute;
 	top: 20px;
-	left: 60%;
+	left: 10%;
 	width: 120px;
 	height: 30px;
 	line-height: 30px;
